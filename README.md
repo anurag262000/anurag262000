@@ -1,7 +1,7 @@
 - 👋 Hi, I’m @anurag262000
 - 👀 I’m interested in web Development
 - 🌱 I’m currently learning Reactjs
-- 💞️ I’m looking to collaborate on React Projects
+- 💞️ I’m looking to collaborate on React/MERN Projects
 - 📫 How to reach me www.linkedin.com/in/anurag-mishra8
 - 😄
 
