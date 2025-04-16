@@ -19,16 +19,6 @@
   
 </div>
 
-## 📊 GitHub Stats
-
-<div align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=anuragmishra262000&show_icons=true&theme=radical" alt="GitHub Stats" />
-  <img src="https://github-readme-streak-stats.herokuapp.com/?user=anuragmishra262000&theme=radical" alt="GitHub Streak" />
-</div>
-
-<div align="center">
-  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=anuragmishra262000&layout=compact&theme=radical" alt="Top Languages" />
-</div>
 
 ## 🚀 About Me
 
@@ -122,41 +112,6 @@ Interactive gaming statistics dashboard with real-time leaderboards, player anal
 
 **[View Demo](https://github.com/anuragmishra262000) | [GitHub Repo](https://github.com/anuragmishra262000/gaming-dashboard)**
 
-## 🛠️ Recent Repositories
-
-<div align="center">
-  <a href="https://github.com/anuragmishra262000/next-auth-template">
-    <img align="center" src="https://github-readme-stats.vercel.app/api/pin/?username=anuragmishra262000&repo=next-auth-template&theme=radical" />
-  </a>
-  <a href="https://github.com/anuragmishra262000/react-component-library">
-    <img align="center" src="https://github-readme-stats.vercel.app/api/pin/?username=anuragmishra262000&repo=react-component-library&theme=radical" />
-  </a>
-</div>
-<br />
-<div align="center">
-  <a href="https://github.com/anuragmishra262000/api-rate-limiter">
-    <img align="center" src="https://github-readme-stats.vercel.app/api/pin/?username=anuragmishra262000&repo=api-rate-limiter&theme=radical" />
-  </a>
-  <a href="https://github.com/anuragmishra262000/tailwind-ui-templates">
-    <img align="center" src="https://github-readme-stats.vercel.app/api/pin/?username=anuragmishra262000&repo=tailwind-ui-templates&theme=radical" />
-  </a>
-</div>
-
-## 📈 Contributions
-
-<div align="center">
-  <img src="https://github-contribution-stats.vercel.app/api/?username=anuragmishra262000" alt="Contribution Stats" />
-</div>
-
-<div align="center">
-  <img src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=anuragmishra262000&theme=dracula" alt="Contribution Graph" />
-</div>
-
-## 🏆 GitHub Trophies
-
-<div align="center">
-  <img src="https://github-profile-trophy.vercel.app/?username=anuragmishra262000&theme=radical&row=1" alt="GitHub Trophies" />
-</div>
 
 ## 🌐 Tech Stack
 
