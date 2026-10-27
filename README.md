@@ -12,6 +12,12 @@
 
 Full-stack web developer with a passion for creating elegant, responsive, and user-friendly web applications. I specialise in the MERN stack (MongoDB, Express.js, React.js, Node.js) and have extensive experience with modern frameworks like Next.js. My toolkit includes TypeScript for type safety, Tailwind CSS and SCSS for stunning designs, and various database solutions, including MongoDB, Firebase, Appwrite, and Supabase.
 
+# 🏙️ My GitHub Activity in 3D
+
+<p align="center">
+  <img src="./profile-3d-contrib/profile-night-view.svg" alt="3D view of Anurag's GitHub contributions" width="100%" />
+</p>
+
 # 📊 GitHub Stats:
 ![](https://github-readme-stats.vercel.app/api?username=anurag262000&theme=dark&hide_border=false&include_all_commits=true&count_private=true)<br/>
 ![](https://nirzak-streak-stats.vercel.app/?user=anurag262000&theme=dark&hide_border=false)<br/>
