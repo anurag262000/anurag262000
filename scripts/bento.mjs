@@ -3,7 +3,7 @@
 // assets/bento-dark.svg and assets/bento-light.svg.
 //
 // Runs every day in .github/workflows/profile.yml with live GitHub data.
-// Local preview with made-up data: node scripts/bento.mjs --sample
+// Local preview with made-up data: node scripts/bento.mjs --sample --out preview
 
 import { createHash } from "node:crypto";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
@@ -29,7 +29,7 @@ const PROFILE = {
 const THEMES = {
   dark: {
     tile: "#161b22", stroke: "#30363d", text: "#e6edf3", muted: "#8d96a0", accent: "#3fb950",
-    live: "#3fb950", chip: "#0d1117", track: "#21262d", glow: "#238636", ground: "#0d1117", shine: "#ffffff",
+    live: "#3fb950", private: "#006d32", chip: "#0d1117", track: "#21262d", glow: "#238636", ground: "#0d1117", shine: "#ffffff",
     flame: ["#ff6a3d", "#ffb02e", "#ffe08a"],
     // city colours per contribution level: [front, side, top]
     city: [
@@ -42,7 +42,7 @@ const THEMES = {
   },
   light: {
     tile: "#f6f8fa", stroke: "#d0d7de", text: "#1f2328", muted: "#59636e", accent: "#1a7f37",
-    live: "#1a7f37", chip: "#ffffff", track: "#e6eaef", glow: "#4ac26b", ground: "#eaeef2", shine: "#ffffff",
+    live: "#1a7f37", private: "#4ac26b", chip: "#ffffff", track: "#e6eaef", glow: "#4ac26b", ground: "#eaeef2", shine: "#ffffff",
     flame: ["#e5482d", "#f59f0b", "#ffd166"],
     city: [
       ["#dfe4ea", "#d0d7de", "#eaeef2"],
@@ -64,7 +64,6 @@ const COL = (W - 3 * GAP) / 4;
 const colX = (c) => c * (COL + GAP);
 const span = (n) => n * COL + (n - 1) * GAP;
 const ROW_Y = [0, 192, 384, 606];
-const H = 756;
 
 const LEVEL = { NONE: 0, FIRST_QUARTILE: 1, SECOND_QUARTILE: 2, THIRD_QUARTILE: 3, FOURTH_QUARTILE: 4 };
 
@@ -73,6 +72,17 @@ const n2 = (v) => Math.round(v * 100) / 100;
 const pts = (list) => list.map(([x, y]) => `${n2(x)},${n2(y)}`).join(" ");
 
 // ── Data ──
+
+async function graphql(token, query, variables) {
+  const res = await fetch("https://api.github.com/graphql", {
+    method: "POST",
+    headers: { Authorization: `bearer ${token}`, "Content-Type": "application/json", "User-Agent": "profile-bento" },
+    body: JSON.stringify({ query, variables }),
+  });
+  const body = await res.json();
+  if (!res.ok || body.errors) throw new Error(`GitHub API: ${res.status} ${JSON.stringify(body.errors ?? body)}`);
+  return body.data;
+}
 
 async function fetchData(login, token) {
   const query = `query($login: String!) {
@@ -87,6 +97,7 @@ async function fetchData(login, token) {
         }
       }
       contributionsCollection {
+        contributionYears
         contributionCalendar {
           totalContributions
           weeks { contributionDays { date weekday contributionCount contributionLevel } }
@@ -94,14 +105,7 @@ async function fetchData(login, token) {
       }
     }
   }`;
-  const res = await fetch("https://api.github.com/graphql", {
-    method: "POST",
-    headers: { Authorization: `bearer ${token}`, "Content-Type": "application/json", "User-Agent": "profile-bento" },
-    body: JSON.stringify({ query, variables: { login } }),
-  });
-  const body = await res.json();
-  if (!res.ok || body.errors) throw new Error(`GitHub API: ${res.status} ${JSON.stringify(body.errors ?? body)}`);
-  const u = body.data.user;
+  const { user: u } = await graphql(token, query, { login });
 
   const langs = new Map();
   for (const repo of u.repositories.nodes) {
@@ -123,7 +127,29 @@ async function fetchData(login, token) {
     prs: u.pullRequests.totalCount,
     followers: u.followers.totalCount,
     languages: [...langs.values()].sort((a, b) => b.size - a.size),
+    years: await fetchYears(login, token, u.contributionsCollection.contributionYears),
   };
+}
+
+// One total per calendar year you've contributed in. A single GitHub query
+// window can't be longer than a year, so each year is its own aliased field.
+async function fetchYears(login, token, contributionYears) {
+  const now = new Date();
+  const fields = contributionYears.map((y) => {
+    const to = y === now.getUTCFullYear() ? now.toISOString() : `${y}-12-31T23:59:59Z`;
+    return `y${y}: contributionsCollection(from: "${y}-01-01T00:00:00Z", to: "${to}") {
+      restrictedContributionsCount
+      contributionCalendar { totalContributions }
+    }`;
+  });
+  const { user } = await graphql(token, `query($login: String!) { user(login: $login) { ${fields.join("\n")} } }`, { login });
+  return contributionYears
+    .map((y) => {
+      const c = user[`y${y}`];
+      const total = c.contributionCalendar.totalContributions;
+      return { year: y, total, private: Math.min(total, c.restrictedContributionsCount) };
+    })
+    .sort((a, b) => a.year - b.year);
 }
 
 function sampleData() {
@@ -145,6 +171,12 @@ function sampleData() {
   }
   return {
     total, weeks, repos: 24, stars: 1, prs: 3, followers: 4,
+    years: [
+      { year: 2023, total: 212, private: 150 },
+      { year: 2024, total: 486, private: 391 },
+      { year: 2025, total: 903, private: 810 },
+      { year: 2026, total: 1725, private: 1540 },
+    ],
     languages: [
       { name: "JavaScript", color: "#f1e05a", size: 52 },
       { name: "TypeScript", color: "#3178c6", size: 26 },
@@ -321,7 +353,7 @@ function skylineTile(t, data) {
   return tile(0, ROW_Y[2], W, 210, 0.36, b, t, "clip-sky");
 }
 
-function stackTile(t, icons) {
+function stackTile(t, icons, y) {
   let b = text(20, 32, "STACK", "label");
   const size = 40;
   const perRow = 6;
@@ -338,26 +370,26 @@ function stackTile(t, icons) {
       `<rect width="${size}" height="${size}" rx="10" fill="${t.chip}" stroke="${t.stroke}"/>` +
       `<g transform="translate(10 10) scale(0.8333)"><path d="${icon.path}" fill="${fill}"/></g></g></g></g>`;
   });
-  return tile(colX(0), ROW_Y[3], span(2), 150, 0.44, b, t);
+  return tile(colX(0), y, span(2), 150, 0.44, b, t);
 }
 
-function languagesTile(t, data) {
+function languagesTile(t, data, y) {
   let b = text(20, 32, "TOP LANGUAGES", "label");
   const total = data.languages.reduce((s, l) => s + l.size, 0);
   const top = data.languages.slice(0, 4);
   if (!top.length) b += text(20, 70, "No public code yet", "small muted");
   top.forEach((l, i) => {
-    const y = 56 + i * 24;
+    const ly = 56 + i * 24;
     const share = total ? l.size / total : 0;
-    b += text(20, y, l.name, "tiny");
-    b += text(COL - 20, y, `${Math.round(share * 100)}%`, "tiny muted mono", ` text-anchor="end"`);
-    b += `<rect x="20" y="${y + 6}" width="${COL - 40}" height="5" rx="2.5" fill="${t.track}"/>`;
-    b += `<rect class="growx" style="animation-delay:${n2(1 + i * 0.12)}s" x="20" y="${y + 6}" width="${n2(Math.max(3, share * (COL - 40)))}" height="5" rx="2.5" fill="${l.color ?? t.muted}"/>`;
+    b += text(20, ly, l.name, "tiny");
+    b += text(COL - 20, ly, `${Math.round(share * 100)}%`, "tiny muted mono", ` text-anchor="end"`);
+    b += `<rect x="20" y="${ly + 6}" width="${COL - 40}" height="5" rx="2.5" fill="${t.track}"/>`;
+    b += `<rect class="growx" style="animation-delay:${n2(1 + i * 0.12)}s" x="20" y="${ly + 6}" width="${n2(Math.max(3, share * (COL - 40)))}" height="5" rx="2.5" fill="${l.color ?? t.muted}"/>`;
   });
-  return tile(colX(2), ROW_Y[3], COL, 150, 0.52, b, t);
+  return tile(colX(2), y, COL, 150, 0.52, b, t);
 }
 
-function statsTile(t, data) {
+function statsTile(t, data, y) {
   let b = text(20, 32, "PROFILE", "label");
   const cells = [
     [20, 68, data.repos, "Public repos"],
@@ -369,7 +401,69 @@ function statsTile(t, data) {
     b += odometer(x, y, v, 24, "mid", 0.8 + i * 0.1);
     b += text(x, y + 18, label, "tiny muted");
   });
-  return tile(colX(3), ROW_Y[3], COL, 150, 0.6, b, t);
+  return tile(colX(3), y, COL, 150, 0.6, b, t);
+}
+
+// ── Journey: contributions per year since you joined ──
+
+const JOURNEY_H = 210;
+
+function journeyTile(t, data, y) {
+  const years = data.years;
+  const sum = years.reduce((s, yr) => s + yr.total, 0);
+  const best = years.reduce((a, yr) => (yr.total > a.total ? yr : a), years[0]);
+  const thisYear = new Date().getUTCFullYear();
+
+  let b = text(20, 34, "THE JOURNEY", "label");
+  b += odometer(20, 100, sum, 44, "big", 0.5);
+  b += text(20, 128, `contributions since ${years[0].year}`, "small muted");
+  b += text(20, 154, `Best year: ${best.year} · ${best.total}`, "tiny muted");
+  b += `<rect x="20" y="177" width="10" height="10" rx="2" fill="${t.accent}"/>` + text(36, 186, "Public", "tiny muted");
+  b += `<rect x="96" y="177" width="10" height="10" rx="2" fill="${t.private}"/>` + text(112, 186, "Private", "tiny muted");
+
+  const x0 = 300;
+  const x1 = W - 24;
+  const base = 168;
+  const maxH = 96;
+  const slot = (x1 - x0) / years.length;
+  const bw = Math.min(56, slot * 0.5);
+  const max = Math.max(1, ...years.map((yr) => yr.total));
+  const tops = [];
+  let bars = "";
+  let labels = "";
+  years.forEach((yr, i) => {
+    const cx = x0 + slot * (i + 0.5);
+    const hTotal = Math.max(3, (yr.total / max) * maxH);
+    const hPrivate = yr.total ? hTotal * (yr.private / yr.total) : 0;
+    const top = base - hTotal;
+    const delay = 0.7 + i * 0.25;
+    const id = `yr${uid++}`;
+    tops.push([cx, top]);
+    // Private work sits at the bottom of each bar, public work on top.
+    bars += `<g class="growy" style="animation-delay:${n2(delay)}s">` +
+      `<clipPath id="${id}"><rect x="${n2(cx - bw / 2)}" y="${n2(top)}" width="${n2(bw)}" height="${n2(hTotal)}" rx="6"/></clipPath>` +
+      `<g clip-path="url(#${id})"><rect x="${n2(cx - bw / 2)}" y="${n2(top)}" width="${n2(bw)}" height="${n2(hTotal)}" fill="${t.accent}"/>` +
+      `<rect x="${n2(cx - bw / 2)}" y="${n2(base - hPrivate)}" width="${n2(bw)}" height="${n2(hPrivate)}" fill="${t.private}"/></g></g>`;
+    labels += text(cx, top - 14, yr.total, "tiny mono fade", ` text-anchor="middle" style="animation-delay:${n2(delay + 0.5)}s"`);
+    labels += text(cx, base + 18, yr.year, "tiny mono muted", ` text-anchor="middle"`);
+    if (yr.year === thisYear) labels += text(cx, base + 32, "so far", "micro muted", ` text-anchor="middle"`);
+  });
+  b += `<line x1="${x0}" x2="${x1}" y1="${base}" y2="${base}" stroke="${t.stroke}"/>`;
+  b += bars + labels;
+
+  // A trend line across the tops, drawn in once the bars are up.
+  if (tops.length > 1) {
+    const lineDelay = 0.9 + years.length * 0.25;
+    const d = tops.map(([x, ty], i) => `${i ? "L" : "M"}${n2(x)} ${n2(ty - 4)}`).join(" ");
+    b += `<path d="${d}" pathLength="1" class="draw" style="animation-delay:${n2(lineDelay)}s" fill="none" stroke="${t.text}" stroke-opacity="0.45" stroke-width="1.5"/>`;
+    tops.forEach(([x, ty], i) => {
+      const last = i === tops.length - 1;
+      b += `<g transform="translate(${n2(x)} ${n2(ty - 4)})">` +
+        (last ? `<circle class="halo" r="4" fill="none" stroke="${t.accent}" stroke-width="2"/>` : "") +
+        `<g class="pop" style="animation-delay:${n2(lineDelay + 0.15 * i)}s"><circle r="3.5" fill="${t.tile}" stroke="${t.text}" stroke-width="1.5"/></g></g>`;
+    });
+  }
+  return tile(0, y, W, JOURNEY_H, 0.42, b, t);
 }
 
 function luminance(hex) {
@@ -391,6 +485,7 @@ function style(t) {
   .body { font-size: 16px; }
   .small { font-size: 13px; }
   .tiny { font-size: 12px; }
+  .micro { font-size: 10px; }
   .muted { fill: ${t.muted}; }
   .chip { font-size: 12px; fill: ${t.text}; }
   .tech { font-size: 12.5px; fill: ${t.accent}; }
@@ -411,6 +506,9 @@ function style(t) {
   .wave { transform-box: fill-box; transform-origin: 70% 80%; animation: wave 2.8s ease-in-out infinite; }
   .tw { opacity: 0; animation: twinkle 6s ease-in-out infinite; }
   .sweep { transform: translateX(-200px); animation: sweep 9s linear 2s infinite; }
+  .draw { stroke-dasharray: 1; animation: draw 1.2s ease-out both; }
+  .fade { animation: fadein 0.6s ease-out both; }
+  .halo { transform-box: fill-box; transform-origin: center; opacity: 0; animation: halo 2.6s ease-out infinite; }
 
   @keyframes rise { from { opacity: 0; transform: translateY(14px); } }
   @keyframes roll { from { transform: translateY(0); } }
@@ -425,6 +523,9 @@ function style(t) {
   @keyframes wave { 0%, 60%, 100% { transform: rotate(0); } 10%, 30% { transform: rotate(16deg); } 20%, 40% { transform: rotate(-8deg); } }
   @keyframes twinkle { 0%, 100% { opacity: 0; } 8% { opacity: 0.6; } 18% { opacity: 0; } }
   @keyframes sweep { from { transform: translateX(-200px); } to { transform: translateX(1000px); } }
+  @keyframes draw { from { stroke-dashoffset: 1; } }
+  @keyframes fadein { from { opacity: 0; } }
+  @keyframes halo { 0% { opacity: 0.6; transform: scale(1); } 100% { opacity: 0; transform: scale(2.6); } }
   @keyframes cycle {
     0% { opacity: 0; transform: translateY(12px); }
     ${n2(p * 0.12)}% { opacity: 1; transform: none; }
@@ -438,6 +539,9 @@ function style(t) {
 
 function render(data, t, icons) {
   uid = 0;
+  const journey = data.years?.length > 0;
+  const bottomY = ROW_Y[3] + (journey ? JOURNEY_H + GAP : 0);
+  const H = bottomY + 150;
   const defs = `<defs>
   <radialGradient id="glow"><stop offset="0" stop-color="${t.glow}" stop-opacity="0.35"/><stop offset="1" stop-color="${t.glow}" stop-opacity="0"/></radialGradient>
   <linearGradient id="sweep"><stop offset="0" stop-color="${t.shine}" stop-opacity="0"/><stop offset="0.5" stop-color="${t.shine}" stop-opacity="0.06"/><stop offset="1" stop-color="${t.shine}" stop-opacity="0"/></linearGradient>
@@ -452,9 +556,10 @@ ${contributionsTile(t, data)}
 ${streakTile(t, data)}
 ${buildingTile(t)}
 ${skylineTile(t, data)}
-${stackTile(t, icons)}
-${languagesTile(t, data)}
-${statsTile(t, data)}
+${journey ? journeyTile(t, data, ROW_Y[3]) : ""}
+${stackTile(t, icons, bottomY)}
+${languagesTile(t, data, bottomY)}
+${statsTile(t, data, bottomY)}
 </svg>
 `;
 }
@@ -474,7 +579,10 @@ async function main() {
   if (!sample && !token) throw new Error("Set GITHUB_TOKEN, or run with --sample for made-up data.");
   const data = sample ? sampleData() : await fetchData(PROFILE.login, token);
   const icons = JSON.parse(await readFile(new URL("./icons.json", import.meta.url), "utf8"));
-  const outDir = new URL("../assets/", import.meta.url);
+  // --out <folder> writes a preview somewhere else and leaves the README alone.
+  const outArg = process.argv.indexOf("--out");
+  const out = outArg > -1 ? process.argv[outArg + 1] : "assets";
+  const outDir = new URL(`../${out}/`, import.meta.url);
   await mkdir(outDir, { recursive: true });
   const hash = createHash("sha1");
   for (const [name, theme] of Object.entries(THEMES)) {
@@ -482,7 +590,7 @@ async function main() {
     hash.update(svg);
     await writeFile(new URL(`bento-${name}.svg`, outDir), svg);
   }
-  if (!sample) await bustCache(hash.digest("hex").slice(0, 10));
+  if (!sample && out === "assets") await bustCache(hash.digest("hex").slice(0, 10));
   console.log(`bento: ${data.total} contributions, ${data.repos} repos${sample ? " (sample data)" : ""}`);
 }
 

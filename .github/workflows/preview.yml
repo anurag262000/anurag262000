@@ -1,0 +1,32 @@
+name: Preview profile card
+
+# Draws the card from live data into preview/ on a work branch, so a change
+# can be checked before it reaches main. Not used on main.
+on:
+  push:
+    branches: ["claude/**"]
+    paths:
+      - "scripts/**"
+      - ".github/workflows/preview.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - name: Draw preview card
+        run: node scripts/bento.mjs --out preview
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          USERNAME: ${{ github.repository_owner }}
+      - name: Commit & Push
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add preview
+          if git commit -m "chore: update preview card"; then
+            git push
+          fi
