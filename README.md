@@ -1,63 +1,110 @@
-# Anurag Mishra | Full Stack Web Developer 👨‍💻
-
-## 🌐 Socials:
-[![Instagram](https://img.shields.io/badge/Instagram-%23E4405F.svg?logo=Instagram&logoColor=white)](https://instagram.com/mishra__anurag_) [![LinkedIn](https://img.shields.io/badge/LinkedIn-%230077B5.svg?logo=linkedin&logoColor=white)](https://linkedin.com/in/www.linkedin.com/in/anuragmishra26) [![Codepen](https://img.shields.io/badge/Codepen-000000?logo=codepen&logoColor=white)](https://codepen.io/gctputxl-the-lessful) [![email](https://img.shields.io/badge/Email-D14836?logo=gmail&logoColor=white)](mailto:anuragmishra262000@gmail.com) 
-
-# 💻 Tech Stack:
-![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=plastic&logo=typescript&logoColor=white) ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=plastic&logo=javascript&logoColor=%23F7DF1E) ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=plastic&logo=node.js&logoColor=white) ![React Native](https://img.shields.io/badge/react_native-%2320232a.svg?style=plastic&logo=react&logoColor=%2361DAFB) ![Firebase](https://img.shields.io/badge/firebase-%23039BE5.svg?style=plastic&logo=firebase) ![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=plastic&logo=supabase&logoColor=white) ![Cloudflare](https://img.shields.io/badge/Cloudflare-F38020?style=plastic&logo=Cloudflare&logoColor=white) ![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=plastic&logo=express&logoColor=%2361DAFB) ![Next JS](https://img.shields.io/badge/Next-black?style=plastic&logo=next.js&logoColor=white) ![React](https://img.shields.io/badge/react-%2320232a.svg?style=plastic&logo=react&logoColor=%2361DAFB) ![Redux](https://img.shields.io/badge/redux-%23593d88.svg?style=plastic&logo=redux&logoColor=white) ![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=plastic&logo=tailwind-css&logoColor=white) ![Three js](https://img.shields.io/badge/threejs-black?style=plastic&logo=three.js&logoColor=white) ![Nginx](https://img.shields.io/badge/nginx-%23009639.svg?style=plastic&logo=nginx&logoColor=white) ![Jenkins](https://img.shields.io/badge/jenkins-%232C5263.svg?style=plastic&logo=jenkins&logoColor=white) ![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=plastic&logo=github&logoColor=white) ![GitHub Actions](https://img.shields.io/badge/github%20actions-%232671E5.svg?style=plastic&logo=githubactions&logoColor=white) ![Sentry](https://img.shields.io/badge/sentry-%23362D59.svg?style=plastic&logo=sentry&logoColor=white) ![Jest](https://img.shields.io/badge/-jest-%23C21325?style=plastic&logo=jest&logoColor=white) ![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=plastic&logo=docker&logoColor=white) ![Postman](https://img.shields.io/badge/Postman-FF6C37?style=plastic&logo=postman&logoColor=white)
-
-## 🚀 About Me
-
-<img align="right" width="300" src="https://camo.githubusercontent.com/61491d59e71fec5c794945fed916a4a682b6c0404fc31f30b08a0d919c558404/68747470733a2f2f696d616765732e73717561726573706163652d63646e2e636f6d2f636f6e74656e742f76312f3537363966633430316236333162616231616464623261622f313534313538303631313632342d5445363451474b524a4738535741495553374e532f6b6531375a77644742546f6464493870446d34386b506f73776c7a6a53564d4d2d53784f703743563539425a772d7a505067646e346a557756634a45315a7657515578776b6d794578676c4e714770304976544a5a616d574c49327a76595748384b332d735f3479737a63703272795449304871544f6161556f68724938504936465879386339505774426c7141566c555335697a7064634958445a71445976707252715a32395077306f2f636f64696e672d667265616b2e676966" alt="Coding Gif" />
-
-Full-stack web developer with a passion for creating elegant, responsive, and user-friendly web applications. I specialise in the MERN stack (MongoDB, Express.js, React.js, Node.js) and have extensive experience with modern frameworks like Next.js. My toolkit includes TypeScript for type safety, Tailwind CSS and SCSS for stunning designs, and various database solutions, including MongoDB, Firebase, Appwrite, and Supabase.
-
-# 🏙️ My GitHub Activity in 3D
-
+<!-- ───────────────────────────── Header ───────────────────────────── -->
 <p align="center">
-  <img src="./profile-3d-contrib/profile-night-view.svg" alt="3D view of Anurag's GitHub contributions" width="100%" />
+  <img width="100%" alt="Anurag Mishra — Full Stack Web Developer"
+       src="https://capsule-render.vercel.app/api?type=waving&color=0:0F172A,50:1E3A8A,100:0EA5E9&height=220&section=header&text=Anurag%20Mishra&fontSize=58&fontColor=FFFFFF&fontAlignY=36&desc=Full%20Stack%20Web%20Developer&descSize=20&descAlignY=58&animation=fadeIn" />
 </p>
 
-# 📊 GitHub Stats:
-![](https://github-readme-stats.vercel.app/api?username=anurag262000&theme=dark&hide_border=false&include_all_commits=true&count_private=true)<br/>
-![](https://nirzak-streak-stats.vercel.app/?user=anurag262000&theme=dark&hide_border=false)<br/>
-![](https://github-readme-stats.vercel.app/api/top-langs/?username=anurag262000&theme=dark&hide_border=false&include_all_commits=true&count_private=true&layout=compact)
+<p align="center">
+  <img alt="Typing intro"
+       src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=500&size=20&duration=3500&pause=900&color=38BDF8&center=true&vCenter=true&width=640&lines=I+build+fast%2C+clean+web+apps.;Next.js+%C2%B7+React+%C2%B7+TypeScript+%C2%B7+Node.js;Learning+production+engineering%3A+Docker%2C+CI%2FCD%2C+DBs" />
+</p>
 
-### ✍️ Random Dev Quote
-![](https://quotes-github-readme.vercel.app/api?type=horizontal&theme=radical)
+<p align="center">
+  <a href="https://www.linkedin.com/in/anuragmishra26"><img alt="LinkedIn" src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" /></a>
+  <a href="https://instagram.com/mishra__anurag_"><img alt="Instagram" src="https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white" /></a>
+  <a href="https://codepen.io/gctputxl-the-lessful"><img alt="CodePen" src="https://img.shields.io/badge/CodePen-111111?style=for-the-badge&logo=codepen&logoColor=white" /></a>
+  <a href="mailto:anuragmishra262000@gmail.com"><img alt="Email" src="https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white" /></a>
+  <img alt="Profile views" src="https://komarev.com/ghpvc/?username=anurag262000&style=for-the-badge&color=0EA5E9&label=PROFILE+VIEWS" />
+</p>
 
+<br />
 
+<!-- ───────────────────────────── About ───────────────────────────── -->
+## 👋 About me
 
-
-## 💼 Technical Skills
-
-### Frontend Development
-```
-React.js    ███████████████████░   95%
-Next.js     ███████████████████░   95%
-TypeScript  ██████████████████░░   90%
-Tailwind    ███████████████████░   95%
-SCSS        ██████████████████░░   90%
-Redux       ██████████████░░░░░░   80%
-```
-
-### Backend Development
-```
-Node.js     ██████████████████░░   90%
-Express     ██████████████████░░   90%
-REST API    ███████████████████░   95%
-GraphQL     ███████████░░░░░░░░░   70%
-```
-
-### Database & BaaS
-```
-MongoDB     ███████████████████░   95%
-Firebase    ██████████████████░░   90%
-Supabase    ██████████████░░░░░░   80%
-Appwrite    ██████████████░░░░░░   80%
-PostgreSQL  ██████████████░░░░░░   80%
+```ts
+const anurag = {
+  role:      "Full Stack Web Developer",
+  focus:     ["Elegant, responsive UIs", "Reliable APIs", "Clean architecture"],
+  frontend:  ["Next.js", "React", "TypeScript", "Tailwind CSS", "SCSS", "Redux"],
+  backend:   ["Node.js", "Express", "REST", "GraphQL"],
+  data:      ["PostgreSQL", "MongoDB", "Firebase", "Supabase", "Appwrite"],
+  learning:  ["Docker", "CI/CD", "Databases", "System design"],
+  openTo:    "Work opportunities & exciting projects",
+};
 ```
 
-<div align="center">
-  <b>Open to work opportunities and exciting projects! Let's build something amazing together.</b>
-</div>
+- 🔭 Building a self-hosted **project & time-tracking tool** for small teams with Next.js, PostgreSQL and Drizzle
+- 🌱 Using it to learn **production engineering**: Docker, CI/CD, databases and architecture
+- 💬 Ask me about **React, Next.js, TypeScript and full-stack web apps**
+- ⚡ I care about clean code, fast pages and interfaces that feel good to use
+
+<br />
+
+<!-- ───────────────────────────── Tech stack ───────────────────────────── -->
+## 🛠️ Tech stack
+
+<table align="center">
+  <tr>
+    <td align="center" width="140"><b>Frontend</b></td>
+    <td><img alt="Frontend" src="https://skillicons.dev/icons?i=ts,js,react,nextjs,redux,tailwind,sass,threejs,html,css&perline=10" /></td>
+  </tr>
+  <tr>
+    <td align="center"><b>Backend</b></td>
+    <td><img alt="Backend" src="https://skillicons.dev/icons?i=nodejs,express,graphql&perline=10" /></td>
+  </tr>
+  <tr>
+    <td align="center"><b>Data &amp; BaaS</b></td>
+    <td><img alt="Databases" src="https://skillicons.dev/icons?i=postgres,mongodb,firebase,supabase,appwrite&perline=10" /></td>
+  </tr>
+  <tr>
+    <td align="center"><b>DevOps &amp; tools</b></td>
+    <td><img alt="DevOps and tools" src="https://skillicons.dev/icons?i=docker,nginx,cloudflare,githubactions,jenkins,git,github,pnpm,postman,jest,sentry&perline=11" /></td>
+  </tr>
+</table>
+
+<br />
+
+<!-- ───────────────────────────── 3D contributions ───────────────────────────── -->
+## 🏙️ My contributions, in 3D
+
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="./profile-3d-contrib/profile-night-view.svg" />
+    <source media="(prefers-color-scheme: light)" srcset="./profile-3d-contrib/profile-green-animate.svg" />
+    <img width="100%" alt="3D city of Anurag's GitHub contributions" src="./profile-3d-contrib/profile-night-view.svg" />
+  </picture>
+</p>
+
+<!-- ───────────────────────────── Stats ───────────────────────────── -->
+## 📊 GitHub stats
+
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://github-readme-stats.vercel.app/api?username=anurag262000&show_icons=true&include_all_commits=true&count_private=true&theme=tokyonight&bg_color=0D1117&hide_border=true&title_color=38BDF8&icon_color=38BDF8" />
+    <img height="170" alt="GitHub stats" src="https://github-readme-stats.vercel.app/api?username=anurag262000&show_icons=true&include_all_commits=true&count_private=true&theme=default&hide_border=true&title_color=0369A1&icon_color=0369A1" />
+  </picture>
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://github-readme-stats.vercel.app/api/top-langs/?username=anurag262000&layout=compact&count_private=true&theme=tokyonight&bg_color=0D1117&hide_border=true&title_color=38BDF8" />
+    <img height="170" alt="Top languages" src="https://github-readme-stats.vercel.app/api/top-langs/?username=anurag262000&layout=compact&count_private=true&theme=default&hide_border=true&title_color=0369A1" />
+  </picture>
+</p>
+
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://streak-stats.demolab.com/?user=anurag262000&theme=tokyonight&background=0D1117&hide_border=true&ring=38BDF8&fire=38BDF8&currStreakLabel=38BDF8" />
+    <img alt="GitHub streak" src="https://streak-stats.demolab.com/?user=anurag262000&theme=default&hide_border=true&ring=0369A1&fire=0369A1&currStreakLabel=0369A1" />
+  </picture>
+</p>
+
+<br />
+
+<!-- ───────────────────────────── Footer ───────────────────────────── -->
+<p align="center">
+  <b>Open to work opportunities and exciting projects. Let's build something great together. 🚀</b>
+</p>
+
+<p align="center">
+  <img width="100%" alt=""
+       src="https://capsule-render.vercel.app/api?type=waving&color=0:0EA5E9,50:1E3A8A,100:0F172A&height=120&section=footer" />
+</p>
