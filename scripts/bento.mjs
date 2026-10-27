@@ -5,6 +5,7 @@
 // Runs every day in .github/workflows/profile.yml with live GitHub data.
 // Local preview with made-up data: node scripts/bento.mjs --sample
 
+import { createHash } from "node:crypto";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 
 // ── What the card says. Edit these lines to change the text. ──
@@ -458,6 +459,15 @@ ${statsTile(t, data)}
 `;
 }
 
+// GitHub lets browsers keep images for 5 minutes. A new ?v= on every redraw
+// gives each version its own address, so a fresh card shows up straight away.
+async function bustCache(version) {
+  const readme = new URL("../README.md", import.meta.url);
+  const before = await readFile(readme, "utf8");
+  const after = before.replace(/(bento-(?:dark|light)\.svg)(\?v=\w+)?/g, `$1?v=${version}`);
+  if (after !== before) await writeFile(readme, after);
+}
+
 async function main() {
   const sample = process.argv.includes("--sample");
   const token = process.env.GITHUB_TOKEN;
@@ -466,9 +476,13 @@ async function main() {
   const icons = JSON.parse(await readFile(new URL("./icons.json", import.meta.url), "utf8"));
   const outDir = new URL("../assets/", import.meta.url);
   await mkdir(outDir, { recursive: true });
+  const hash = createHash("sha1");
   for (const [name, theme] of Object.entries(THEMES)) {
-    await writeFile(new URL(`bento-${name}.svg`, outDir), render(data, theme, icons));
+    const svg = render(data, theme, icons);
+    hash.update(svg);
+    await writeFile(new URL(`bento-${name}.svg`, outDir), svg);
   }
+  if (!sample) await bustCache(hash.digest("hex").slice(0, 10));
   console.log(`bento: ${data.total} contributions, ${data.repos} repos${sample ? " (sample data)" : ""}`);
 }
 

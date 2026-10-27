@@ -31,7 +31,7 @@ jobs:
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
-          git add assets
+          git add assets README.md
           if git commit -m "chore: update profile card"; then
             git push
           fi
