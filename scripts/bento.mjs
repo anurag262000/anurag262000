@@ -27,28 +27,28 @@ const PROFILE = {
 
 const THEMES = {
   dark: {
-    tile: "#161b22", stroke: "#30363d", text: "#e6edf3", muted: "#8d96a0", accent: "#58a6ff",
-    live: "#3fb950", chip: "#0d1117", track: "#21262d", glow: "#1f6feb", ground: "#0d1117", shine: "#ffffff",
+    tile: "#161b22", stroke: "#30363d", text: "#e6edf3", muted: "#8d96a0", accent: "#3fb950",
+    live: "#3fb950", chip: "#0d1117", track: "#21262d", glow: "#238636", ground: "#0d1117", shine: "#ffffff",
     flame: ["#ff6a3d", "#ffb02e", "#ffe08a"],
     // city colours per contribution level: [front, side, top]
     city: [
       ["#1c2129", "#161a20", "#262c35"],
-      ["#0d3a63", "#0a2c4b", "#14507f"],
-      ["#155e9e", "#0f4677", "#1f75bf"],
-      ["#2f81d6", "#2263a8", "#4a9be8"],
-      ["#7cc0ff", "#58a2e8", "#b3dbff"],
+      ["#0e4429", "#0a321e", "#135c37"],
+      ["#006d32", "#005226", "#0a8a43"],
+      ["#26a641", "#1d8033", "#3cc456"],
+      ["#39d353", "#2bab42", "#7ee891"],
     ],
   },
   light: {
-    tile: "#f6f8fa", stroke: "#d0d7de", text: "#1f2328", muted: "#59636e", accent: "#0969da",
-    live: "#1a7f37", chip: "#ffffff", track: "#e6eaef", glow: "#54aeff", ground: "#eaeef2", shine: "#ffffff",
+    tile: "#f6f8fa", stroke: "#d0d7de", text: "#1f2328", muted: "#59636e", accent: "#1a7f37",
+    live: "#1a7f37", chip: "#ffffff", track: "#e6eaef", glow: "#4ac26b", ground: "#eaeef2", shine: "#ffffff",
     flame: ["#e5482d", "#f59f0b", "#ffd166"],
     city: [
       ["#dfe4ea", "#d0d7de", "#eaeef2"],
-      ["#b6d3f2", "#9cc0e6", "#cfe3f8"],
-      ["#6ea8e4", "#5590cf", "#8ebdee"],
-      ["#2f7fd0", "#2468b0", "#4b95dd"],
-      ["#0b4f9c", "#083c78", "#1663b8"],
+      ["#9be9a8", "#7fd38d", "#b8f0c1"],
+      ["#40c463", "#33a852", "#5fd47d"],
+      ["#30a14e", "#26833f", "#45b862"],
+      ["#216e39", "#18552b", "#2d8a4a"],
     ],
   },
 };
