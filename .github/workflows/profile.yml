@@ -1,20 +1,29 @@
-name: GitHub-Profile-3D-Contrib
+name: Update profile card
 
 on:
   schedule:
-    - cron: "0 18 * * *"
+    - cron: "17 18 * * *"
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "scripts/**"
+      - ".github/workflows/profile.yml"
 
 permissions:
   contents: write
 
+concurrency:
+  group: profile-card
+  cancel-in-progress: true
+
 jobs:
   build:
     runs-on: ubuntu-latest
-    name: generate-github-profile-3d-contrib
     steps:
       - uses: actions/checkout@v5
-      - uses: yoshi389111/github-profile-3d-contrib@latest
+      - name: Draw bento card
+        run: node scripts/bento.mjs
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           USERNAME: ${{ github.repository_owner }}
@@ -22,7 +31,7 @@ jobs:
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
-          git add -A .
-          if git commit -m "chore: update 3D contribution graph"; then
+          git add assets
+          if git commit -m "chore: update profile card"; then
             git push
           fi
