@@ -1,7 +1,7 @@
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/anurag262000/anurag262000/main/assets/bento-dark.svg?v=3789ed531d" />
-    <img width="100%" alt="Hi, I'm Anurag, a full stack web developer. My contributions, streak, current project, a 3D city of a year of commits, my stack and top languages." src="https://raw.githubusercontent.com/anurag262000/anurag262000/main/assets/bento-light.svg?v=3789ed531d" />
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/anurag262000/anurag262000/main/assets/bento-dark.svg?v=1e08105f3f" />
+    <img width="100%" alt="Hi, I'm Anurag, a full stack web developer. My contributions, streak, current project, a 3D city of a year of commits, my stack and top languages." src="https://raw.githubusercontent.com/anurag262000/anurag262000/main/assets/bento-light.svg?v=1e08105f3f" />
   </picture>
 </p>
 
